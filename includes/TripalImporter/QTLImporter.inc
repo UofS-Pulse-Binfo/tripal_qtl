@@ -5,7 +5,7 @@
  * Provides support for loading of MST map files.
  */
 class QTLImporter extends TripalImporter {
-
+  
   /**
    * The name of this loader.
    *
@@ -130,7 +130,7 @@ class QTLImporter extends TripalImporter {
   /**
    * Import the map.
    */
-  public function run() {
+  public function run($f_id = null) {
 
     // All values provided by the user in the Importer's form widgets are
     // made available to us here by the Class' arguments member variable.
@@ -147,7 +147,8 @@ class QTLImporter extends TripalImporter {
     $file_path = $this->arguments['files'][0]['file_path'];
 
     // Retrieve map to add QTL Data to.
-    $featuremap_id = $arguments['featuremap_name'];
+    $featuremap_id = ($f_id && $f_id > 1) ? $f_id : $arguments['featuremap_name'];
+
     if (!$featuremap_id) {
       $this->logMessage('An Error was encountered retrieving the genetic map.');
       return FALSE;
